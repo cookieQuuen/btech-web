@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NGOMA College - Year 4 IT Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --primary: #003366;
+  --secondary: #004080;
+  --accent: #0066cc;
+  --light: #f3f6fb;
+  --dark: #111;
+  --gray: #666;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --info: #17a2b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, Arial, sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+/* Login Page */
+#loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.login-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-card h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.login-card .logo {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+/* Dashboard */
+#dashboardPage {
+  display: none;
+}
+
+/* Header */
+header {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+header .subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 0.3rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  background: white;
+  padding: 0 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: var(--dark);
+  text-decoration: none;
+  padding: 1rem 1.2rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav a:hover, nav a.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  background: rgba(0, 51, 102, 0.05);
+}
+
+/* Main Content */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 1.5rem;
+}
+
+/* Cards */
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08);
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-left: 4px solid var(--primary);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.12);
+}
+
+.card h2, .card h3, .card h4 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: var(--light);
+  color: var(--dark);
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background: #e9ecef;
+}
+
+.btn-small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+/* Forms */
+input, textarea, select {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  transition: border 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* Table */
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background: var(--light);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+tr:hover {
+  background: rgba(0, 51, 102, 0.03);
+}
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-primary {
+  background: rgba(0, 51, 102, 0.1);
+  color: var(--primary);
+}
+
+.badge-success {
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--success);
+}
+
+.badge-warning {
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--warning);
+}
+
+.badge-info {
+  background: rgba(23, 162, 184, 0.1);
+  color: var(--info);
+}
+
+/* Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: var(--light);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Announcements */
+.announcement {
+  padding: 1rem;
+  border-left: 4px solid var(--accent);
+  background: rgba(0, 102, 204, 0.05);
+  margin-bottom: 1rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.announcement.priority {
+  border-left-color: var(--danger);
+  background: rgba(220, 53, 69, 0.05);
+}
+
+.announcement-date {
+  font-size: 0.8rem;
+  color: var(--gray);
+  margin-top: 0.5rem;
+}
+
+/* Members */
+.member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background: var(--light);
+}
+
+.member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+/* Notes */
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--light);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.note-item:hover {
+  background: rgba(0, 51, 102, 0.05);
+}
+
+.note-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.note-icon {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+/* Modules */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.module-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
+}
+
+.module-card:hover {
+  transform: translateY(-5px);
+}
+
+.module-card h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.module-code {
+  background: var(--light);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: white;
+  background: var(--primary);
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  nav {
+    justify-content: center;
+  }
+  
+  nav a {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .login-card {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Utility Classes */
+.muted {
+  color: var(--gray);
+}
+
+.small {
+  font-size: 0.85rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.active {
+  color: var(--primary) !important;
+  border-bottom-color: var(--primary) !important;
+}
+
+/* Calendar/Timetable */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: #eee;
+  border: 1px solid #eee;
+  margin-top: 1rem;
+}
+
+.calendar-header {
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.calendar-cell {
+  background: white;
+  padding: 0.8rem;
+  min-height: 120px;
+  border: 1px solid #eee;
+}
+
+.calendar-time {
+  font-size: 0.8rem;
+  color: var(--gray);
+  margin-bottom: 0.5rem;
+}
+
+.calendar-event {
+  background: rgba(0, 102, 204, 0.1);
+  padding: 0.4rem;
+  border-radius: 4px;
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+
+/* Progress bars */
+.progress-bar {
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--success);
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- Login Page -->
+<div id="loginPage">
+  <div class="login-card">
+    <div class="logo">
+      <i class="fas fa-graduation-cap"></i>
+    </div>
+    <h2>NGOMA College Portal</h2>
+    <p class="muted">Bachelor of IT - Year 4 (2025-2026)</p>
+    
+    <div class="mt-1">
+      <label>Email Address</label>
+      <input id="loginEmail" type="email" placeholder="admin@ngoma.rw" />
+      
+      <label>Password</label>
+      <input id="loginPass" type="password" placeholder="Enter your password" />
+      
+      <div id="loginMsg" class="small muted mb-1"></div>
+      
+      <button class="btn btn-primary" onclick="demoLogin()" style="width: 100%;">
+        <i class="fas fa-sign-in-alt"></i> Login to Portal
+      </button>
+    </div>
+    
+    <div class="small muted mt-1">
+      <p><strong>Demo Credentials:</strong><br>Email: admin@ngoma.rw<br>Password: ngoma2025</p>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboardPage">
+  <header>
+    <div class="header-content">
+      <div>
+        <h1>NGOMA College — Bachelor of IT (Year 4)</h1>
+        <div class="subtitle">Academic Year: 2025-2026 | Semester: I | Department: ICT</div>
+      </div>
+      <div class="user-info">
+        <div class="user-avatar">A</div>
+        <div>
+          <div><strong>Admin User</strong></div>
+          <div class="small">admin@ngoma.rw</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#home" class="active"><i class="fas fa-home"></i> Home</a>
+    <a href="#modules"><i class="fas fa-book-open"></i> Modules</a>
+    <a href="#notes"><i class="fas fa-book"></i> Notes</a>
+    <a href="#timetable"><i class="fas fa-calendar-alt"></i> Timetable</a>
+    <a href="#members"><i class="fas fa-users"></i> Members</a>
+    <a href="#announcements"><i class="fas fa-bullhorn"></i> Announcements</a>
+    <a href="#gallery"><i class="fas fa-images"></i> Gallery</a>
+    <a href="#admin"><i class="fas fa-cog"></i> Admin</a>
+    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </nav>
+
+  <div class="container">
+    <div class="grid">
+      <main>
+        <!-- Home Section -->
+        <section id="home" class="card">
+          <h2><i class="fas fa-graduation-cap"></i> Welcome to Year 4 IT Class</h2>
+          <p>Welcome to the comprehensive class portal for Bachelor of Information Technology, Year 4 (2025-2026). This platform serves as the central hub for all academic resources, communications, and class management tools.</p>
+          
+          <div class="flex-between mt-1">
+            <div>
+              <h3>Class Statistics</h3>
+              <div class="flex gap-1 mt-1">
+                <div class="badge badge-primary">36 Students</div>
+                <div class="badge badge-success">9 Modules</div>
+                <div class="badge badge-warning">75 Credits</div>
+                <div class="badge badge-info">100 Learning Hours</div>
+              </div>
+            </div>
+            <div>
+              <h3>Current Round</h3>
+              <div class="small mt-1">Round Two: Oct 20 - Dec 12, 2025</div>
+            </div>
+          </div>
+          
+          <div class="mt-1">
+            <h3>Upcoming Deadlines</h3>
+            <div class="announcement">
+              <h4><i class="fas fa-exclamation-circle"></i> Embedded System CAT</h4>
+              <div class="flex-between">
+                <span>Date: October 27, 2025</span>
+                <span class="badge badge-warning">Pending</span>
+              </div>
+            </div>
+            <div class="announcement">
+              <h4><i class="fas fa-exclamation-circle"></i> Software Engineering Final Exam</h4>
+              <div class="flex-between">
+                <span>Date: October 27, 2025</span>
+                <span class="badge badge-warning">Pending</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Modules Section -->
+        <section id="modules" class="card hidden">
+          <h2><i class="fas fa-book-open"></i> Current Modules</h2>
+          <p>All modules for Year 4, Semester I (2025-2026)</p>
+          
+          <div class="modules-grid mt-1">
+            <!-- Round One Modules -->
+            <div class="module-card">
+              <div class="module-code">ITLES801</div>
+              <h4>Embedded System Development</h4>
+              <div class="small muted">Module Leader: Mrs. Eng. Madeleine Yankurije</div>
+              <div class="small muted">Credits: 10 | Hours/Week: 6</div>
+              <div class="small muted">Period: Sep 8 - Nov 21, 2025</div>
+              <div class="progress-bar mt-1">
+                <div class="progress-fill" style="width: 60%"></div>
+              </div>
+              <div class="flex-between small mt-1">
+                <span>CAT: Oct 27</span>
+                <span>Final: Dec 15</span>
+              </div>
+            </div>
+            
+            <div class="module-card">
+              <div class="module-code">ITLSE801</div>
+              <h4>Software Engineering</h4>
+              <div class="small muted">Module Leader: Bonaventure Uwamahoro</div>
+              <div class="small muted">Credits: 10 | Hours/Week: 10</div>
+              <div class="small muted">Period: Sep 8 - Oct 17, 2025</div>
+              <div class="progress-bar mt-1">
+                <div class="progress-fill" style="width: 100%"></div>
+              </div>
+              <div class="flex-between small mt-1">
+                <span>CAT: Sep 30</span>
+                <span>Final: Oct 27</span>
+              </div>
+            </div>
+            
+            <div class="module-card">
+              <div class="module-code">GENCM801</div>
+              <h4>Computational Methods</h4>
+              <div class="small muted">Module Leader: Mwizerwa Jerome</div>
+              <div class="small muted">Credits: 15 | Hours/Week: 15</div>
+              <div class="small muted">Period: Sep 8 - Oct 17, 2025</div>
+              <div class="progress-bar mt-1">
+                <div class="progress-fill" style="width: 100%"></div>
+              </div>
+              <div class="flex-between small mt-1">
+                <span>CAT: Sep 26</span>
+                <span>Final: Oct 31</span>
+              </div>
+            </div>
+            
+            <div class="module-card">
+              <div class="module-code">CCMPP801</div>
+              <h4>Personal Work Priorities</h4>
+              <div class="small muted">Module Leader: Kanyandekwe Emmanuel</div>
+              <div class="small muted">Credits: 5 | Hours/Week: 3</div>
+              <div class="small muted">Period: Sep 8 - Nov 21, 2025</div>
+              <div class="progress-bar mt-1">
+                <div class="progress-fill" style="width: 70%"></div>
+              </div>
+              <div class="flex-between small mt-1">
+                <span>CAT: Oct 29</span>
+                <span>Final: Dec 8</span>
+              </div>
+            </div>
+            
+            <!-- Round Two Modules -->
+            <div class="module-card">
+              <div class="module-code">ITLDO801</div>
+              <h4>Development Operations</h4>
+              <div class="small muted">Module Leader: Bonaventure Uwamahoro</div>
+              <div class="small muted">Credits: 10 | Hours/Week: 8</div>
+              <div class="small muted">Period: Oct 20 - Dec 12, 2025</div>
+              <div class="progress-bar mt-1">
+                <div class="progress-fill" style="width: 40%"></div>
+              </div>
+              <div class="flex-between small mt-1">
+                <span>CAT: Nov 7</span>
+                <span>Final: Dec 16</span>
+              </div>
+            </div>
+            
+            <div class="module-card">
+              <div class="module-code">CCMRM801</div>
+              <h4>Research Methodology</h4>
+              <div class="small muted">Module Leader: Leopold Uwamahoro</div>
+              <div class="small muted">Credits: 10 | Hours/Week: 8</div>
+              <div class="small muted">Period: Oct 20 - Dec 12, 2025</div>
+              <div class="progress-bar mt-1">
+                <div class="progress-fill" style="width: 40%"></div>
+              </div>
+              <div class="flex-between small mt-1">
+                <span>CAT: Dec 11</span>
+                <span>Final: Dec 19</span>
+              </div>
+            </div>
+            
+            <div class="module-card">
+              <div class="module-code">ITLML801</div>
+              <h4>Machine Learning</h4>
+              <div class="small muted">Module Leader: Leopold Uwamahoro</div>
+              <div class="small muted">Credits: 10 | Hours/Week: 8</div>
+              <div class="small muted">Period: Oct 20 - Dec 12, 2025</div>
+              <div class="progress-bar mt-1">
+                <div class="progress-fill" style="width: 40%"></div>
+              </div>
+              <div class="flex-between small mt-1">
+                <span>CAT: Nov 4</span>
+                <span>Final: Dec 17</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section id="notes" class="card hidden">
+          <h2><i class="fas fa-book"></i> Course Notes & Materials</h2>
+          <p>Access all course materials, lecture notes, and reading resources.</p>
+          
+          <div class="notes-list mt-1">
+            <div class="note-item">
+              <div class="note-info">
+                <div class="note-icon"><i class="fas fa-file-powerpoint"></i></div>
+                <div>
+                  <div><strong>Embedded System Development</strong> - LO1 Presentation</div>
+                  <div class="small muted">Module: ITLES801 | Chapter: Design Embedded System Architecture</div>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-small"><i class="fas fa-download"></i> Download</button>
+            </div>
+            
+            <div class="note-item">
+              <div class="note-info">
+                <div class="note-icon"><i class="fas fa-file-pdf"></i></div>
+                <div>
+                  <div><strong>Software Engineering</strong> - Complete Notes</div>
+                  <div class="small muted">Module: ITLSE801 | Topics: SDLC, Waterfall Model, FURPS</div>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-small"><i class="fas fa-download"></i> Download</button>
+            </div>
+            
+            <div class="note-item">
+              <div class="note-info">
+                <div class="note-icon"><i class="fas fa-file-pdf"></i></div>
+                <div>
+                  <div><strong>Computational Methods</strong> - Numerical Integration</div>
+                  <div class="small muted">Module: GENCM801 | Topics: Trapezoidal, Simpson's Rule, Romberg</div>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-small"><i class="fas fa-download"></i> Download</button>
+            </div>
+            
+            <div class="note-item">
+              <div class="note-info">
+                <div class="note-icon"><i class="fas fa-file-alt"></i></div>
+                <div>
+                  <div><strong>Project Management</strong> - Software Management</div>
+                  <div class="small muted">Module: CCMPP801 | Topics: Gantt Charts, PERT, Risk Management</div>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-small"><i class="fas fa-download"></i> Download</button>
+            </div>
+            
+            <div class="note-item">
+              <div class="note-info">
+                <div class="note-icon"><i class="fas fa-file-pdf"></i></div>
+                <div>
+                  <div><strong>FURPS Model</strong> - Introduction & Application</div>
+                  <div class="small muted">Module: ITLSE801 | Quality Attributes Framework</div>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-small"><i class="fas fa-download"></i> Download</button>
+            </div>
+          </div>
+          
+          <div class="mt-1">
+            <button class="btn btn-primary"><i class="fas fa-upload"></i> Upload New Notes</button>
+          </div>
+        </section>
+
+        <!-- Timetable Section -->
+        <section id="timetable" class="card hidden">
+          <h2><i class="fas fa-calendar-alt"></i> Weekly Timetable - Round Two</h2>
+          <p>Current schedule for October 20 - December 12, 2025</p>
+          
+          <div class="calendar">
+            <div class="calendar-header">Monday</div>
+            <div class="calendar-header">Tuesday</div>
+            <div class="calendar-header">Wednesday</div>
+            <div class="calendar-header">Thursday</div>
+            <div class="calendar-header">Friday</div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">8:30 - 11:00</div>
+              <div class="calendar-event">
+                <strong>ITLES801</strong><br>
+                Embedded Systems<br>
+                <small>Madeleine Y.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">8:30 - 11:00</div>
+              <div class="calendar-event">
+                <strong>CCMRM801</strong><br>
+                Research Methodology<br>
+                <small>Leopold U.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">8:30 - 11:00</div>
+              <div class="calendar-event">
+                <strong>ITLDO801</strong><br>
+                Development Operations<br>
+                <small>Bonaventure U.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">8:30 - 11:00</div>
+              <div class="calendar-event">
+                <strong>ITLML801</strong><br>
+                Machine Learning<br>
+                <small>Leopold</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">8:30 - 11:00</div>
+              <div class="calendar-event">
+                <strong>ITLDO801</strong><br>
+                Development Operations<br>
+                <small>Bonaventure U.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">11:20 - 13:00</div>
+              <div class="calendar-event">
+                <strong>CCMPP801</strong><br>
+                Personal Work Priorities<br>
+                <small>Kanyandekwe E.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">11:20 - 13:00</div>
+              <div class="calendar-event">
+                <strong>CCMRM801</strong><br>
+                Research Methodology<br>
+                <small>Leopold U.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">11:20 - 13:00</div>
+              <div class="calendar-event">
+                <strong>ITLDO801</strong><br>
+                Development Operations<br>
+                <small>Bonaventure U.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">11:20 - 13:00</div>
+              <div class="calendar-event">
+                <strong>ITLML801</strong><br>
+                Machine Learning<br>
+                <small>Leopold</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">11:20 - 13:00</div>
+              <div class="calendar-event">
+                <strong>ITLDO801</strong><br>
+                Development Operations<br>
+                <small>Bonaventure U.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">14:30 - 17:00</div>
+              <div class="calendar-event">
+                <strong>CCMPP801</strong><br>
+                Personal Work Priorities<br>
+                <small>Kanyandekwe E.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">14:30 - 17:00</div>
+              <div class="calendar-event">
+                <strong>ITLML801</strong><br>
+                Machine Learning<br>
+                <small>Leopold</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">14:30 - 17:00</div>
+              <div class="calendar-event">
+                <strong>ITLES801</strong><br>
+                Embedded Systems<br>
+                <small>Madeleine Y.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <div class="calendar-time">14:30 - 17:00</div>
+              <div class="calendar-event">
+                <strong>CCMRM801</strong><br>
+                Research Methodology<br>
+                <small>Leopold U.</small>
+              </div>
+            </div>
+            
+            <div class="calendar-cell">
+              <!-- Free period -->
+            </div>
+          </div>
+          
+          <div class="mt-1">
+            <button class="btn btn-secondary"><i class="fas fa-print"></i> Print Timetable</button>
+            <button class="btn btn-primary"><i class="fas fa-sync"></i> View Round One</button>
+          </div>
+        </section>
+
+        <!-- Members Section -->
+        <section id="members" class="card hidden">
+          <h2><i class="fas fa-users"></i> Class Members</h2>
+          <p>Year 4 IT Class - Total: 36 Students</p>
+          
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Reg Number</th>
+                  <th>Last Name</th>
+                  <th>First Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="membersTable">
+                <!-- Students will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="mt-1">
+            <button class="btn btn-primary"><i class="fas fa-file-export"></i> Export List</button>
+            <button class="btn btn-secondary"><i class="fas fa-envelope"></i> Email All</button>
+          </div>
+        </section>
+
+        <!-- Announcements Section -->
+        <section id="announcements" class="card hidden">
+          <h2><i class="fas fa-bullhorn"></i> Announcements</h2>
+          
+          <div class="mt-1">
+            <div class="announcement priority">
+              <h4><i class="fas fa-exclamation-circle"></i> IMPORTANT: Embedded System CAT</h4>
+              <p>The CAT for Embedded System Development (ITLES801) will be held on October 27, 2025. Please prepare all topics covered in LO1: Design Embedded System Architecture.</p>
+              <div class="announcement-date">Posted: October 20, 2025 by Mrs. Eng. Madeleine Yankurije</div>
+            </div>
+            
+            <div class="announcement">
+              <h4><i class="fas fa-info-circle"></i> New Module Materials Uploaded</h4>
+              <p>Complete notes for Software Engineering, along with tutorial videos, have been uploaded to the portal. Please check the Notes section.</p>
+              <div class="announcement-date">Posted: October 18, 2025 by Bonaventure Uwamahoro</div>
+            </div>            <div class="announcement">
+              <h4><i class="fas fa-calendar-check"></i> Round Two Timetable Available</h4>
+              <p>The detailed timetable for Round Two (Oct 20 - Dec 12) is now available. Please check the Timetable section for your weekly schedule.</p>
+              <div class="announcement-date">Posted: October 15, 2025 by ICT Department</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="card hidden">
+          <h2><i class="fas fa-images"></i> Class Gallery</h2>
+          <p>Photos from class activities, events, and projects</p>
+          
+          <div class="gallery-grid mt-1">
+            <div class="gallery-item">
+              <div style="width:100%;height:100%;background:#e0e0e0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center;">
+                <i class="fas fa-image" style="font-size:3rem;color:#666;margin-bottom:0.5rem;"></i>
+                <strong>Class Photo 2025</strong>
+                <small class="muted">Year 4 IT Students</small>
+              </div>
+            </div>
+            
+            <div class="gallery-item">
+              <div style="width:100%;height:100%;background:#e0e0e0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center;">
+                <i class="fas fa-microchip" style="font-size:3rem;color:#666;margin-bottom:0.5rem;"></i>
+                <strong>Embedded Systems Lab</strong>
+                <small class="muted">Practical Session</small>
+              </div>
+            </div>
+            
+            <div class="gallery-item">
+              <div style="width:100%;height:100%;background:#e0e0e0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center;">
+                <i class="fas fa-laptop-code" style="font-size:3rem;color:#666;margin-bottom:0.5rem;"></i>
+                <strong>Software Engineering</strong>
+                <small class="muted">Group Project Work</small>
+              </div>
+            </div>
+            
+            <div class="gallery-item">
+              <div style="width:100%;height:100%;background:#e0e0e0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center;">
+                <i class="fas fa-chart-line" style="font-size:3rem;color:#666;margin-bottom:0.5rem;"></i>
+                <strong>Machine Learning</strong>
+                <small class="muted">Data Analysis Workshop</small>
+              </div>
+            </div>
+            
+            <div class="gallery-item">
+              <div style="width:100%;height:100%;background:#e0e0e0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center;">
+                <i class="fas fa-users" style="font-size:3rem;color:#666;margin-bottom:0.5rem;"></i>
+                <strong>Seminar Session</strong>
+                <small class="muted">Guest Lecture</small>
+              </div>
+            </div>
+            
+            <div class="gallery-item">
+              <div style="width:100%;height:100%;background:#e0e0e0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center;">
+                <i class="fas fa-graduation-cap" style="font-size:3rem;color:#666;margin-bottom:0.5rem;"></i>
+                <strong>Project Defense</strong>
+                <small class="muted">Final Presentations</small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-1">
+            <button class="btn btn-primary"><i class="fas fa-camera"></i> Upload Photos</button>
+            <button class="btn btn-secondary"><i class="fas fa-video"></i> View Videos</button>
+          </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin" class="card hidden">
+          <h2><i class="fas fa-cog"></i> Admin Panel</h2>
+          <p>Administrative tools for class management</p>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem;">
+            <div class="card">
+              <h3><i class="fas fa-user-plus"></i> Add Student</h3>
+              <input type="text" placeholder="Registration Number" />
+              <input type="text" placeholder="Full Name" />
+              <input type="email" placeholder="Email Address" />
+              <button class="btn btn-primary" style="width:100%;">Add Student</button>
+            </div>
+            
+            <div class="card">
+              <h3><i class="fas fa-file-upload"></i> Upload Materials</h3>
+              <input type="text" placeholder="Module Code" />
+              <input type="text" placeholder="Document Title" />
+              <input type="file" />
+              <button class="btn btn-primary" style="width:100%;">Upload File</button>
+            </div>
+            
+            <div class="card">
+              <h3><i class="fas fa-bullhorn"></i> Send Announcement</h3>
+              <input type="text" placeholder="Announcement Title" />
+              <textarea placeholder="Announcement Content" rows="3"></textarea>
+              <button class="btn btn-primary" style="width:100%;">Post Announcement</button>
+            </div>
+            
+            <div class="card">
+              <h3><i class="fas fa-calendar-plus"></i> Schedule Event</h3>
+              <input type="text" placeholder="Event Title" />
+              <input type="datetime-local" />
+              <button class="btn btn-primary" style="width:100%;">Schedule Event</button>
+            </div>
+          </div>
+          
+          <div class="mt-1">
+            <h3>Quick Actions</h3>
+            <div class="flex gap-1 mt-1">
+              <button class="btn btn-secondary"><i class="fas fa-download"></i> Export Data</button>
+              <button class="btn btn-secondary"><i class="fas fa-envelope"></i> Email All</button>
+              <button class="btn btn-secondary"><i class="fas fa-print"></i> Print Reports</button>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <aside>
+        <!-- Quick Links -->
+        <div class="card">
+          <h3><i class="fas fa-link"></i> Quick Links</h3>
+          <div class="member-list">
+            <a href="#" class="member-item">
+              <i class="fas fa-calendar-day" style="color:var(--primary);"></i>
+              <div>
+                <div><strong>Today's Schedule</strong></div>
+                <div class="small muted">View today's classes</div>
+              </div>
+            </a>
+            <a href="#" class="member-item">
+              <i class="fas fa-file-download" style="color:var(--primary);"></i>
+              <div>
+                <div><strong>Download Forms</strong></div>
+                <div class="small muted">Academic forms & templates</div>
+              </div>
+            </a>
+            <a href="#" class="member-item">
+              <i class="fas fa-question-circle" style="color:var(--primary);"></i>
+              <div>
+                <div><strong>Help & Support</strong></div>
+                <div class="small muted">Contact ICT support</div>
+              </div>
+            </a>
+            <a href="#" class="member-item">
+              <i class="fas fa-book" style="color:var(--primary);"></i>
+              <div>
+                <div><strong>Library Resources</strong></div>
+                <div class="small muted">Online library access</div>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Important Dates -->
+        <div class="card">
+          <h3><i class="fas fa-calendar"></i> Important Dates</h3>
+          <div class="announcement">
+            <h4>CAT Period</h4>
+            <p class="small">October 27 - November 7, 2025</p>
+          </div>
+          <div class="announcement">
+            <h4>Final Exams</h4>
+            <p class="small">December 8 - December 19, 2025</p>
+          </div>
+          <div class="announcement">
+            <h4>Semester Break</h4>
+            <p class="small">December 20, 2025 - January 5, 2026</p>
+          </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="card">
+          <h3><i class="fas fa-history"></i> Recent Activity</h3>
+          <div class="small muted mt-1">
+            <div class="flex-between mb-1">
+              <span>Notes uploaded</span>
+              <span>2 hours ago</span>
+            </div>
+            <div class="flex-between mb-1">
+              <span>Announcement posted</span>
+              <span>1 day ago</span>
+            </div>
+            <div class="flex-between mb-1">
+              <span>Timetable updated</span>
+              <span>2 days ago</span>
+            </div>
+            <div class="flex-between">
+              <span>New student added</span>
+              <span>3 days ago</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+  
+  <footer>
+    <p>© 2025 NGOMA College - Bachelor of Information Technology Year 4</p>
+    <p class="small">Portal Version 1.0 | Last Updated: October 2025</p>
+    <div class="small mt-1">
+      <a href="#" style="color:white;margin:0 10px;">Privacy Policy</a> | 
+      <a href="#" style="color:white;margin:0 10px;">Terms of Use</a> | 
+      <a href="#" style="color:white;margin:0 10px;">Contact Support</a>
+    </div>
+  </footer>
+</div>
+
+<!-- JavaScript Functions -->
+<script>
+// Login function - Hides login page, shows dashboard
+function demoLogin() {
+    // Get input values
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPass').value;
+    const msg = document.getElementById('loginMsg');
+    
+    // Demo credentials
+    const demoEmail = "admin@ngoma.rw";
+    const demoPass = "ngoma2025";
+    
+    // Simple validation
+    if (email === demoEmail && password === demoPass) {
+        msg.innerHTML = '<span style="color: green;">✓ Login successful! Redirecting...</span>';
+        
+        // Show dashboard after short delay
+        setTimeout(() => {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboardPage').style.display = 'block';
+            // Show home section by default
+            showSection('home');
+        }, 500);
+    } else {
+        msg.innerHTML = '<span style="color: red;">✗ Invalid credentials. Use: admin@ngoma.rw / ngoma2025</span>';
+    }
+}
+
+// Navigation function to show/hide sections
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('main > section').forEach(section => {
+        section.classList.add('hidden');
+    });
+    
+    // Show selected section
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.classList.remove('hidden');
+    }
+    
+    // Update active nav link
+    document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + sectionId) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Logout function - Returns to login page
+function logout() {
+    if (confirm("Are you sure you want to logout?")) {
+        // Show login page, hide dashboard
+        document.getElementById('dashboardPage').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'flex';
+        
+        // Clear login fields
+        document.getElementById('loginEmail').value = '';
+        document.getElementById('loginPass').value = '';
+        document.getElementById('loginMsg').innerHTML = '';
+    }
+}
+
+// Auto-fill demo credentials for testing
+window.onload = function() {
+    document.getElementById('loginEmail').value = "admin@ngoma.rw";
+    document.getElementById('loginPass').value = "ngoma2025";
+    
+    // Setup navigation
+    setupNavigation();
+};
+
+// Setup navigation event listeners
+function setupNavigation() {
+    // Add click events to all nav links
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // If it's a hash link (like #home, #modules, etc.)
+            if (href && href.startsWith('#') && href !== '#') {
+                e.preventDefault();
+                const sectionId = href.substring(1);
+                showSection(sectionId);
+            }
+        });
+    });
+    
+    // Populate members table
+    populateMembersTable();
+}
+
+// Populate members table with sample data
+function populateMembersTable() {
+    const membersTable = document.getElementById('membersTable');
+    if (!membersTable) return;
+    
+    const students = [
+        { reg: "IT2025001", lastName: "MESHAKE", firstName: "Tito", status: "Active" },
+        { reg: "IT2025002", lastName: "HOGOZA", firstName: "Peace", status: "Active" },
+        { reg: "IT2025006", lastName: "MUCYO", firstName: "Patrick", status: "Active" },
+        { reg: "IT2025003", lastName: "SHIKAMUSENGE", firstName: "Philimon", status: "Active" },
+        { reg: "IT2025006", lastName: "MANIRIHO", firstName: "Chance", status: "Active" },
+        { reg: "IT2025004", lastName: "MUTONI", firstName: "Phiona", status: "Active" },
+        { reg: "IT2025006", lastName: "UMWERE", firstName: "Christian", status: "Active" },
+        { reg: "IT2025005", lastName: "NTAKIRUTIMANA", firstName: "Sabin", status: "Active" },
+        { reg: "IT2025006", lastName: "NIYONSABA", firstName: "Parfaite", status: "Active" },
+        { reg: "IT2025007", lastName: "HENERY", firstName: "Placide", status: "Active" },
+        { reg: "IT2025008", lastName: "TUYISHIME", firstName: "Ellisa", status: "Active" },
+        { reg: "IT2025004", lastName: "MUTONI", firstName: "Phiona", status: "Active" },
+        { reg: "IT2025001", lastName: "MESHAKE", firstName: "Tito", status: "Active" },
+        { reg: "IT2025009", lastName: "NYABASHARE", firstName: "Larene", status: "Active" },
+        { reg: "IT2025004", lastName: "MUTONI", firstName: "Phiona", status: "Active" },
+        { reg: "IT2025006", lastName: "NDAYIZEYE", firstName: "Kevin", status: "Active" },
+        { reg: "IT2025010", lastName: "CYIZERE", firstName: "Caline", status: "Active" }
+           ];
+    
+    let html = '';
+    students.forEach((student, index) => {
+        html += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${student.reg}</td>
+                <td>${student.lastName}</td>
+                <td>${student.firstName}</td>
+                <td><span class="badge badge-success">${student.status}</span></td>
+            </tr>
+        `;
+    });
+    
+    membersTable.innerHTML = html;
+}
+
+// Add Enter key support for login
+document.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        if (document.getElementById('loginPage').style.display !== 'none') {
+            demoLogin();
+        }
+    }
+});
+</script>
+</body>
+</html>
